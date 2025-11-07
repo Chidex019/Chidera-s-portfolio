@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Chaz Clark - Data Science Portfolio"
+  title: "Chidera Orizu Bioinformatics/data science Portfolio"
   favicon: Images/favicon.png
   back-to-top-navigation: true
   site-url: https://byuidatascience.github.io/course_work_portfolio/
@@ -12,10 +12,10 @@ website:
 
   page-footer: 
     border: true
-    left: "Your_Name 2024©"
+    left: "Chidera Orizu 2025©"
     right: 
       - icon: linkedin
-        href: Your_LinkedIn_URL
+        href: https://www.linkedin.com/in/chidera-orizu-8b5662250/
 
   navbar:
     background: primary
@@ -23,25 +23,19 @@ website:
     right:
       - text: "Home"
         file: index.qmd
-      - text: "DS250 Projects"
-        file: 250_projects.qmd
+      - text: "Projects"
+        file: projects
 
   sidebar:
-    - title: "DS 250 Projects"
+    - title: "Projects"
       style: "docked"
       background: light
       contents:
-        - text: "DS250 Projects"
-          file: 250_projects.qmd
+        - text: "Projects"
+          file: projects/consulting.Rmd
         - text: "---"
-        - text: "Project 3"
-          file: 250_Projects/project3.qmd
-        - text: "---"
-        - text: "Project 4"
-          file: 250_Projects/project4.qmd
-        - text: "---"
-        - text: "Project 5"
-          file: 250_Projects/project5.qmd
+        - text: "Project 1"
+          file: projects/MyChiSquaredTest.Rmd
         - text: "---"
 
 format:  

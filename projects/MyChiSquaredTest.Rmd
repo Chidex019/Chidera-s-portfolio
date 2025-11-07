@@ -1,0 +1,103 @@
+---
+title: "Chi Squared Test"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+---
+
+
+<!-- Directions
+
+Come up with a chi squared test analysis of your own creation. 
+
+* Write the Background and clearly state your question. Then collect data and perform the chi-squared test analysis in order to answer your question. Use the proper order of first, ask the question, then second, figure out the answer.
+
+* You can use data from 
+    - An R data set
+    - the internet (like weather data, Facebook data, or sports data) 
+    - your own experiment 
+    - your own observational study
+* However,     
+    - Do not violate the "Human Subjects Rules" of the university: http://www.byui.edu/executive-strategy-and-planning/institutional-research/research-and-assessments/research-and-surveys
+
+* You need a sample size large enough to meet the requirements of the chi squared test. Unfortunately, the sample size is completely dependent on the situation you select. A good rule of thumb is 10 observations per "combination-group" in your data.
+
+-->
+```{r message=FALSE, warning=FALSE}
+library(mosaic)
+library(ResourceSelection) 
+library(tidyverse)
+library(pander)
+library(DT)
+library(plotly)
+library(ggplot2)
+coffee <- read_csv("../../Data/coffee.csv")
+```
+
+
+
+
+![coffee](cof.JPG)
+
+## Background
+
+Coffee is one of the most consumed beverages in the world, with many types to suit every person's taste. Understanding preferences can give a clue to the marketers and the coffee shops on whom to target. This analysis will, therefore, seek to answer the following question: **Is there a relationship between a person's age and the type of coffee preferred**-a person who prefers Espresso, Latte, Cappuccino, or Americano? In this relationship, we seek to understand if age impacts coffee preferences for the pursuit of appropriate advertising and tailoring of the menu items. For this analysis we got data from a coffee shop by asking the customers from the several age groups which one they preferred. Below is the table of the data collected
+
+
+
+```{r message=FALSE, warning=FALSE}
+coffee <- data.frame(
+  Age_Group = c("18-25", "26-35", "36-50", "51+"),
+  Espresso = c(22, 25, 34, 19),
+  Latte = c(30, 35, 28, 24),
+  Cappuccino = c(28, 29, 31, 15),
+  Americano = c(20, 18, 22, 27)
+)
+coffee_table <- as.table(t(as.matrix(coffee[, -1])))
+rownames(coffee_table) <- coffee$Age_Group 
+colnames(coffee_table) <- c("Espresso", "Latte", "Cappuccino", "Americano")
+(pander(coffee_table))
+```
+## Analysis
+For this analysis we are trying to know if age and coffee type are independent or associated and if they are associated what they exact correlation would be. We would now be conducting a hypothesis test to know if they are independent or not.
+
+$$
+H_0: \text{Age and coffee type are independent}.
+$$
+
+$$
+H_0: \text{Age and coffee type are not independent(associated)}.
+$$
+
+$$
+\alpha = 0.05
+$$
+
+For this test we use an alpha of 0.05 that allows us to know if we reject the null or not. Basically rejecting the null tells us age and coffee type are associated meanwhile accepting the null tells us they are not. We can also make use of graphical summaries to compare each coffee type and age visually.
+
+```{r}
+coffee_data <- matrix(c(22, 30, 28, 20, 25, 35, 29, 18, 34, 28, 31, 22, 19, 24, 15, 27), nrow = 4, byrow = TRUE)
+bp <- barplot(coffee_data, beside=TRUE, col=c("wheat", "navy", "darkgreen", "grey"),
+              legend.text=c("Espresso", "Latte", "Cappuccino", "Americano"),
+              args.legend = list(x="topright", bty="n", title="Coffee Type", cex=0.7),
+              xlab="Age Group", main="Coffee Preferences of each Age Group",
+              ylab="Frequency of coffee consumers")
+age_groups <- c("18-25", "26-35", "36-50", "51+")
+text(x=colMeans(bp), y=-1, labels=age_groups, srt=45, adj=1, xpd=TRUE)
+```
+
+From the graphs above we now have a basic idea of what type of coffee each age group would prefer.And we can solidfy this claim even better by running proper statistical analysis to back it up.
+
+```{r}
+qs2Chi<-chisq.test(coffee_table)
+pander(qs2Chi)
+```
+
+
+## Intepretaion
+
+From our analysis above we had a p-value of 0.2558 and failed to reject the Null and so that means that both age and coffee type are independent. Please note that this data only covered a very small population and doesn't really reflect the actual results in reality. So with this it would be advised that more research and statistical analysis be carried out on this subject for more accurate information.
+
+
+

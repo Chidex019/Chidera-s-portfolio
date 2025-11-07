@@ -1,8 +1,11 @@
 ---
-title: "about me"
-subtitle: "my data science portfolio"
+title: "About me"
+subtitle: "my Bioinformatics/Data science portfolio"
 # use quarto markdown to 
 ---
+
+I’m Chidera Orizu, a Bioinformatics and Data Science student at Brigham Young University–Idaho with experience in Python, R, and SQL. I enjoy using computational tools to analyze biological data, build predictive models, and automate workflows. With hands-on experience as a Data Analyst and Teaching Assistant, I’m passionate about applying data-driven approaches to advance healthcare, biotechnology, and genomics research.
+
 
 # Title 1 Header
 ## Title 2 Header
