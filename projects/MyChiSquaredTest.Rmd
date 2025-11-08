@@ -32,7 +32,7 @@ library(pander)
 library(DT)
 library(plotly)
 library(ggplot2)
-coffee <- read_csv("../../Data/coffee.csv")
+coffee <- read_csv("coffee.csv")
 ```
 
 

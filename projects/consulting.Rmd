@@ -14,7 +14,7 @@ library(pander)
 library(DT)
 library(plotly)
 library(ggplot2)
-cancer <- read_csv("../../Data/cancer.csv")
+cancer <- read_csv("cancer.csv")
 cancer <- cancer[1:300, ]
 cancer<- cancer %>% select(c(Patient_Id,Age,Gender,Air_Pollution,Genetic_Risk,Smoking,Alcohol_use,cancer))
 cancer$Air_Pollution<-as.numeric(cancer$Air_Pollution)
