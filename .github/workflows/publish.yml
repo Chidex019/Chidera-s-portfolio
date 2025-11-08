@@ -19,31 +19,36 @@ jobs:
         with:
           # To install LaTeX to build PDF book 
           tinytex: true 
-      
-      # Comment out the below section if you are not using python
+
+      # ✅ Install R (so Quarto can render .Rmd/.qmd files that use R)
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.3.2'
+          use-public-rspm: true
+
+      # ✅ Install R Dependencies (for R Markdown or Quarto docs)
+      - name: Install R Dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::tidyverse
+            any::knitr
+            any::rmarkdown
+            any::ggplot2
+            any::DT
+
+      # ✅ Install Python if you’re using Python code blocks
       - name: Install Python and Dependencies
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          #cache: 'pip'
-      - run: pip install jupyter numpy pandas scikit-learn lets-plot palmerpenguins nbformat nbclient tabulate skimpy seaborn matplotlib kaleido # plotly.express altair altair_viewer
-      #- run: pip install -r requirements.txt
 
-      # Comment out the 2 below section if you are not using R
-      # - name: Install R
-      #   uses: r-lib/actions/setup-r@v2
-      #   with:
-      #     #r-version: '4.3.2'
-      #     use-public-rspm: true
+      - name: Install Python Packages
+        run: |
+          pip install jupyter numpy pandas scikit-learn lets-plot palmerpenguins nbformat nbclient tabulate skimpy seaborn matplotlib kaleido
 
-      # - name: Install R Dependencies
-      #   uses: r-lib/actions/setup-r-dependencies@v2
-      #   with:
-      #     packages: 
-      #       any::tidyverse
-      #       any::knitr
-      #       any::DT
-
+      # ✅ Render and Publish website to GitHub Pages
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
