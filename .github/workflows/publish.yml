@@ -11,23 +11,25 @@ jobs:
     permissions:
       contents: write
     steps:
+      # ✅ Step 1: Check out your repository
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # ✅ Step 2: Set up Quarto
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          # To install LaTeX to build PDF book 
-          tinytex: true 
+          # Install LaTeX if you need to render PDFs
+          tinytex: true
 
-      # ✅ Install R (so Quarto can render .Rmd/.qmd files that use R)
+      # ✅ Step 3: Set up R
       - name: Install R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: '4.3.2'
           use-public-rspm: true
 
-      # ✅ Install R Dependencies (for R Markdown or Quarto docs)
+      # ✅ Step 4: Install required R packages
       - name: Install R Dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -37,8 +39,10 @@ jobs:
             any::rmarkdown
             any::ggplot2
             any::DT
+            any::plotly
+            any::mosaic    # 👈 Added this line to fix your error
 
-      # ✅ Install Python if you’re using Python code blocks
+      # ✅ Step 5: Set up Python (optional, if you use Python code blocks)
       - name: Install Python and Dependencies
         uses: actions/setup-python@v5
         with:
@@ -48,7 +52,7 @@ jobs:
         run: |
           pip install jupyter numpy pandas scikit-learn lets-plot palmerpenguins nbformat nbclient tabulate skimpy seaborn matplotlib kaleido
 
-      # ✅ Render and Publish website to GitHub Pages
+      # ✅ Step 6: Render and publish Quarto website
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
